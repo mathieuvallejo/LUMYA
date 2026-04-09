@@ -1,0 +1,85 @@
+.login-form-wrapper {
+  position: relative;
+  display: flex;
+  height: 50%;
+  width: 100%;
+  align-items: flex-end;
+  overflow: hidden;
+  background: #d6e8f5; 
+}
+
+.login-form-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55%; 
+  background: url('https://i.imgur.com/wF4UB9q.png') center top / cover no-repeat;
+  z-index: 0;
+}
+
+app-auth-pop {
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.mat-mdc-text-field-wrapper {
+  border: 1.5px solid #1E1E1E !important;
+  border-radius: 32px !important;
+  background: transparent !important;
+  padding: 1px 8px !important;
+}
+
+.mdc-text-field--filled {
+  border-radius: 32px !important;
+  background: transparent !important;
+}
+
+.mdc-line-ripple { display: none; }
+
+.mat-mdc-form-field-focus-overlay,
+.mdc-text-field__ripple { display: none !important; }
+
+.custom-button {
+  width: 100% !important;
+  border-radius: 32px !important;
+  background-color: #FA223A !important;
+  color: #f8f8f8 !important;
+  padding: 6px 32px !important;
+  font-size: 0.9rem !important;
+  min-height: auto !important;
+}
+
+.extras-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.social-row {
+  margin-bottom: 10%;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  color: 1E1E1E !important;
+}
+
+.forgotpassword {
+  font-size: 0.9rem;
+  color: #FA223A;
+  text-decoration: none;
+}
