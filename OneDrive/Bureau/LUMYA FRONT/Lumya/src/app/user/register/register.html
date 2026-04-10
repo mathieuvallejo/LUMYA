@@ -39,6 +39,11 @@
 
         <div *ngIf="message()" [ngClass]="messageType()">{{ message() }}</div>
       </form>
+             <div class="signup-footer">
+        <span>Pas de compte ?</span>
+        <button mat-button color="primary"><a routerLink="/login">Connexion</a></button>
+      </div>
+
 
       <div class="social-row">
         <button mat-icon-button class="social-button apple-btn" (click)="loginWithApple()">

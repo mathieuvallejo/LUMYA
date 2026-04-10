@@ -29,7 +29,12 @@
 
         <div *ngIf="message()" [ngClass]="messageType()">{{ message() }}</div>
       </form>
+             <div class="signup-footer">
+        <span>Déjà un compte ?</span>
+        <button mat-button color="primary"><a routerLink="/register">Inscrivez-vous</a></button>
+      </div>
 
+      
       <div class="social-row">
         <button mat-icon-button class="social-button apple-btn" (click)="loginWithApple()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
