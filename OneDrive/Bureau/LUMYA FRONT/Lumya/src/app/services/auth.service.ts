@@ -13,6 +13,7 @@ export interface RegisterData {
 
 export interface AuthResponse {
   id?: number;
+  name?: string;
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -50,11 +51,22 @@ export class AuthService {
       tap(response => {
         if (response.token) {
           localStorage.setItem('token', response.token);
-          localStorage.setItem('user', JSON.stringify(response));
-          this.currentUserSubject.next(response);
+          const decoded = this.decodeToken(response.token);
+          const user = { ...response, ...decoded };
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSubject.next(user);
         }
       })
     );
+  }
+
+  private decodeToken(token: string): any {
+    try {
+      const payload = token.split('.')[1];
+      return JSON.parse(atob(payload));
+    } catch {
+      return {};
+    }
   }
 
   // Get current user
