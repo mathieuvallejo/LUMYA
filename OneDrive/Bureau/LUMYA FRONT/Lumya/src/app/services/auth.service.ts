@@ -33,7 +33,7 @@ export class AuthService {
 
   // Register
   register(data: RegisterData): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/users`, data).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/users`, data, { withCredentials: true }).pipe(
       tap(response => {
         if (response.token) {
           localStorage.setItem('token', response.token);
@@ -46,7 +46,7 @@ export class AuthService {
 
   // Login
   login(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/session`, { email, password }).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/session`, { email, password }, { withCredentials: true }).pipe(
       tap(response => {
         if (response.token) {
           localStorage.setItem('token', response.token);

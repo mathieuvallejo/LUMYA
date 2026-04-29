@@ -19,8 +19,11 @@ export class Home implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.getCurrentUser();
-    this.videoService.getVideos().subscribe(data => {
-      this.videos = data;
+    console.log('TOKEN:', this.authService.getToken());
+    console.log('USER:', this.authService.getCurrentUser());
+    this.videoService.getVideos().subscribe({
+      next: data => { this.videos = data; },
+      error: err => console.error('VIDEO ERROR:', err)
     });
   }
 }

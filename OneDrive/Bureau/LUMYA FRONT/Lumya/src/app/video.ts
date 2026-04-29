@@ -21,6 +21,6 @@ export class VideoService {
   constructor(private http: HttpClient) {}
 
   getVideos(): Observable<Video[]> {
-    return this.http.get<Video[]>(this.apiUrl);
+    return this.http.get<Video[]>(this.apiUrl, { withCredentials: true });
   }
 }
