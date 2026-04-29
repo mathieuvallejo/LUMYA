@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { AuthResponse } from '../services/auth.service';
+import { VideoService, Video } from '../video';
 
 @Component({
   selector: 'app-home',
@@ -12,10 +13,14 @@ import { AuthResponse } from '../services/auth.service';
 })
 export class Home implements OnInit {
   user: AuthResponse | null = null;
+  videos: Video[] = [];
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private videoService: VideoService) {}
 
   ngOnInit(): void {
     this.user = this.authService.getCurrentUser();
+    this.videoService.getVideos().subscribe(data => {
+      this.videos = data;
+    });
   }
 }

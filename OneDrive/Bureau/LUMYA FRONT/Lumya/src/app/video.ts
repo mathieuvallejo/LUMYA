@@ -1,30 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
-export interface url {
+export interface Video {
   idVideo?: number;
   titre: string;
   urlVideo?: string;
   datePublication?: Date;
   nbVues?: number;
   statutModeration?: number;
-  
 }
 
+@Injectable({
+  providedIn: 'root',
+})
+export class VideoService {
+  private apiUrl = `${environment.apiUrl}/video`;
 
+  constructor(private http: HttpClient) {}
 
-export class Video {
-private apiUrl = environment.apiUrl;
-
-
-
-constructor(private http: HttpClient) {}
- 
-// getvideoById(id:number):Observable<>
-// }
+  getVideos(): Observable<Video[]> {
+    return this.http.get<Video[]>(this.apiUrl);
+  }
+}
