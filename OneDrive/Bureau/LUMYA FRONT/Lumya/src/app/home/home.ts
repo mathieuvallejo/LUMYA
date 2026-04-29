@@ -31,8 +31,14 @@ export class Home implements OnInit {
   if (nextWrapper) {
     nextWrapper.scrollIntoView({ behavior: 'smooth' });
   }
+
+
   
 }
-}
 
+
+  showVideo(video: Video) {
+    console.log('Video clicked:', video.titre); 
+}
+}
 

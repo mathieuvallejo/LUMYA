@@ -59,14 +59,21 @@ video::-webkit-media-controls-current-time-display {}
 .buttons-container {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 15px;
   position: absolute;
   right: 5px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 20;
   padding: 6px 6px 6px 6px;
+
+
 /* From https://css.glass */
+border-radius: 32px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(19.8px);
+-webkit-backdrop-filter: blur(19.8px);
+border: 1px solid rgba(255, 255, 255, 0.30);
 
 }
 
@@ -77,26 +84,23 @@ video::-webkit-media-controls-current-time-display {}
   border: none;
   gap: 10px;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
+  padding: 6px 6px 6px 6px;
+  margin: 5px 5px 5px 5px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s, box-shadow 0.3s;
+  transition: background 0.3s;
   color: #F8F8F8;
-  background-color: transparent;
-    padding: 0;
+  background-color: transparent !important;
+
 }
 
-.like-button:hover,
-.comment-button:hover,
-.profil-button:hover {
-  box-shadow: 0 8px 25px rgba(250, 34, 58, 0.6);
-}
 
 .like-button i,
 .comment-button i {
-  font-size: 40px;
+  font-size: 24px;
 }
 
 .icon-wrapper {
