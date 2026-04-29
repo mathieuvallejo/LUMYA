@@ -1,12 +1,12 @@
 
 
 <div class="home-container">
-  <h1>Bienvenue sur LUMYA {{ user?.name }}</h1>
+  <h1>Bienvenue sur LUMYA {{ user()?.name }}</h1>
   <p>Votre espace pour cultiver votre bien-être mental.</p>
 </div>
 
 <div class="video">
-  <div *ngFor="let video of videos">
+  <div *ngFor="let video of videos()">
     <h3>{{ video.titre }}</h3>
     <video *ngIf="video.urlVideo" [src]="video.urlVideo" controls></video>
   </div>
