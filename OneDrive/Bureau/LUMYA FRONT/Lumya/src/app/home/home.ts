@@ -24,4 +24,15 @@ export class Home implements OnInit {
       error: err => console.error('VIDEO ERROR:', err)
     });
   }
+
+  scrollToNext(event: any) {
+  const currentWrapper = event.target.closest('.video-wrapper');
+  const nextWrapper = currentWrapper.nextElementSibling;
+  if (nextWrapper) {
+    nextWrapper.scrollIntoView({ behavior: 'smooth' });
+  }
+  
 }
+}
+
+
