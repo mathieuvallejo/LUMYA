@@ -1,32 +1,49 @@
 <div class="video-container">
-  <div class="video-wrapper" *ngFor="let video of videos()">
-    <div class="video-content">
-      <h3>{{ video.titre }}</h3>
-      <video *ngIf="video.urlVideo" [src]="video.urlVideo" autoplay="autoplay"></video>
+  <div class="video-wrapper" *ngFor="let video of videos(); let i = index">
+
+    <h3 class="video-title">{{ video.titre }}</h3>
+
+    <div class="video-content" (click)="togglePlay(i)">
+      <div class="video-area">
+        <video #videoRef [attr.src]="video.urlVideo || null" autoplay muted loop></video>
+        <div class="play-overlay" [class.visible]="isPaused(i)">
+          <i class="fa-solid fa-pause"></i>
+        </div>
+        <button class="mute-btn" (click)="$event.stopPropagation(); toggleMute()">
+          <i [class]="isMuted() ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high'"></i>
+        </button>
+      </div>
     </div>
 
+    <button class="prev-arrow" (click)="scrollToPrev($event)">
+      <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" /></svg>
+    </button>
     <button class="next-arrow" (click)="scrollToNext($event)">
-      <svg viewBox="0 0 24 24">
-        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
-      </svg>
+      <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" /></svg>
     </button>
 
     <div class="buttons-container">
-      <button class="profil-button"
-        style="background-image: url('https://i.pinimg.com/736x/02/3c/78/023c7839633d38b5951066e268dd4475.jpg'); background-size: cover; background-position: center;">
-      </button>
-      <button class="like-button">
-        <div class="icon-wrapper">
-          <i class="fa-solid fa-heart"></i>
-          <!-- <span class="icon-count">1.25K</span> -->
+
+      <div class="action-item">
+        <div class="profil-btn-wrapper">
+          <button class="profil-button"
+            style="background-image: url('https://i.pinimg.com/736x/02/3c/78/023c7839633d38b5951066e268dd4475.jpg'); background-size: cover; background-position: center;">
+          </button>
+          <div class="profil-plus"><i class="fa-solid fa-plus"></i></div>
         </div>
-      </button>
-      <button class="comment-button" onclick="showVideo(video)">
-        <div class="icon-wrapper">
-          <i class="fa-solid fa-comment"></i>
-          <!-- <span class="icon-count">253</span> -->
-        </div>
-      </button>
+      </div>
+
+      <div class="action-item">
+        <button class="like-button"><i class="fa-solid fa-heart"></i></button>
+        <span class="action-count">{{ formatCount(video.nbVues) }}</span>
+      </div>
+
+      <div class="action-item">
+        <button class="comment-button"><i class="fa-solid fa-comment-dots"></i></button>
+        <span class="action-count">0</span>
+      </div>
+
     </div>
+
   </div>
 </div>

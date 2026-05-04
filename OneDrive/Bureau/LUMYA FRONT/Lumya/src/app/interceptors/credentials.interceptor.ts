@@ -13,7 +13,6 @@ export class CredentialsInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    // on ajoute withCredentials à tt les requêtes
     const credentialRequest = request.clone({
       withCredentials: true
     });

@@ -1,2 +1,5 @@
-<app-navbar></app-navbar>
+@if (showNav()) {
+  <app-search-bar></app-search-bar>
+  <app-navbar></app-navbar>
+}
 <router-outlet></router-outlet>

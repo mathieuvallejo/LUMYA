@@ -1,0 +1,12 @@
+<div class="search-container">
+  <div class="search-input-wrapper">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery"
+      placeholder="Rechercher..."
+      (keyup.enter)="onSearch()"
+      class="search-input"
+    >
+  </div>
+</div>

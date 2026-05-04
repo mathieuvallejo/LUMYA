@@ -32,7 +32,6 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  // Register
   register(data: RegisterData): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/users`, data, { withCredentials: true }).pipe(
       tap(response => {
@@ -45,7 +44,6 @@ export class AuthService {
     );
   }
 
-  // Login
   login(email: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/session`, { email, password }, { withCredentials: true }).pipe(
       tap(response => {
@@ -69,29 +67,24 @@ export class AuthService {
     }
   }
 
-  // Get current user
   getCurrentUser() {
     return this.currentUserSubject.value;
   }
 
-  // Get token
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  // Logout
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.currentUserSubject.next(null);
   }
 
-  // Check if user is logged in
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
 
-  // Get user from localStorage
   private getUserFromStorage() {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;

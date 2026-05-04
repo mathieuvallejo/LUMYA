@@ -1,0 +1,22 @@
+.upload-container {
+  padding: 20px;
+  color: #F8F8F8;
+  background: #1E1E1E;
+  min-height: 100vh;
+
+  h1 {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .upload-container {
+    padding-top: 80px;
+  }
+}
+
+@media (min-width: 768px) {
+  .upload-container {
+    padding-left: 230px;
+  }
+}

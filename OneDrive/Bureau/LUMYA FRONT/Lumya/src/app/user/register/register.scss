@@ -116,4 +116,26 @@ form {
   padding-left: 12px !important;
 }
 
+@media (min-width: 768px) {
+  .login-form-wrapper {
+    background-size: contain !important;
+    background-position: center !important;
+    background-attachment: scroll !important;
+    background-color: #1E1E1E !important;
+  }
+
+  app-auth-pop {
+    width: 460px !important;
+    height: auto !important;
+  }
+
+  .glass-sheet {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    border-radius: 24px !important;
+  }
+}
 

@@ -1,12 +1,20 @@
 <nav class="navbar">
-  <div class="navbar-brand">
-    <a routerLink="/home">LUMYA</a>
-  </div>
-  <div class="navbar-links">
-    <ul>
-      <li><a routerLink="/home">Accueil</a></li>
-      <li><a routerLink="/login">Connexion</a></li>
-      <li><a routerLink="/register">Inscription</a></li>
-    </ul>
+  <div class="nav-menu">
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span class="nav-label">Accueil</span>
+    </a>
+    <a routerLink="/messages" routerLinkActive="active" class="nav-item">
+      <i class="fa-solid fa-envelope"></i>
+      <span class="nav-label">Messagerie</span>
+    </a>
+    <a routerLink="/upload" routerLinkActive="active" class="nav-item">
+      <i class="fa-solid fa-circle-plus"></i>
+      <span class="nav-label">Ajouter vidéo</span>
+    </a>
+    <a routerLink="/profile" routerLinkActive="active" class="nav-item profile-item">
+      <div class="profile-avatar" [style.backgroundImage]="'url(' + profileImageUrl + ')'"></div>
+      <span class="nav-label">Profil</span>
+    </a>
   </div>
 </nav>
