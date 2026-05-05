@@ -8,8 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { AuthPop } from '../auth-pop/auth-pop';
-import { AuthService } from '../services/auth.service';
+import { AuthPop } from '../../shared/components/auth-pop/auth-pop';
+import { AuthService } from '../../core/services/auth.service';
+import { MoodPicker } from '../../shared/components/mood-picker/mood-picker';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,8 @@ import { AuthService } from '../services/auth.service';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    AuthPop
+    AuthPop,
+    MoodPicker
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
@@ -35,6 +37,7 @@ export class Profile {
   verify = signal(false);
   message = signal('');
   messageType = signal<'success' | 'error' | ''>('');
+
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }

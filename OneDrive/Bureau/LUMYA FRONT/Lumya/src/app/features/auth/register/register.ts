@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { AuthPop } from '../../auth-pop/auth-pop';
+import { AuthPop } from '../../../shared/components/auth-pop/auth-pop';
 
 @Component({
   selector: 'app-register',

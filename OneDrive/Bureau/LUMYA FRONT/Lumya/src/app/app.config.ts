@@ -2,8 +2,8 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CredentialsInterceptor } from './interceptors/credentials.interceptor';
-import { AuthInterceptor } from './services/auth.interceptor';
+import { CredentialsInterceptor } from './core/interceptors/credentials.interceptor';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 import { routes } from './app.routes';
 

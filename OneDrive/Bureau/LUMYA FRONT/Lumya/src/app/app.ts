@@ -2,8 +2,8 @@ import { Component, signal } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
-import { Navbar } from './navbar/navbar';
-import { SearchBar } from './components/search-bar/search-bar';
+import { Navbar } from './shared/components/navbar/navbar';
+import { SearchBar } from './shared/components/search-bar/search-bar';
 
 @Component({
   selector: 'app-root',

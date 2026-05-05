@@ -1,8 +1,9 @@
 import { Component, OnInit, signal, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../services/auth.service';
-import { AuthResponse } from '../services/auth.service';
-import { VideoService, Video } from '../video';
+import { AuthService } from '../../core/services/auth.service';
+import { AuthResponse } from '../../core/services/auth.service';
+import { VideoService, Video } from '../../core/services/video.service';
+import { LikeService } from '../../core/services/like.service';
 
 @Component({
   selector: 'app-home',
@@ -16,10 +17,11 @@ export class Home implements OnInit {
   videos = signal<Video[]>([]);
   pausedStates = signal<Set<number>>(new Set());
   isMuted = signal<boolean>(true);
+  likedVideos = signal<Set<number>>(new Set());
 
   @ViewChildren('videoRef') videoElements!: QueryList<ElementRef<HTMLVideoElement>>;
 
-  constructor(private authService: AuthService, private videoService: VideoService) {}
+  constructor(private authService: AuthService, private videoService: VideoService, private likeService: LikeService) {}
 
   ngOnInit(): void {
     this.user.set(this.authService.getCurrentUser());
@@ -55,6 +57,13 @@ export class Home implements OnInit {
       el.nativeElement.muted = newMuted;
     });
   }
+
+
+
+  isLiked(videoId: number): boolean {
+    return this.likedVideos().has(videoId);
+  }
+
 
   scrollToNext(event: any): void {
     const currentWrapper = (event.target as HTMLElement).closest('.video-wrapper');

@@ -1,0 +1,25 @@
+<div class="mood-card">
+  <div class="mood-header">
+    <div class="mood-icon">
+      <i class="fa-solid fa-chart-line"></i>
+    </div>
+    <div class="mood-title-block">
+      <h3 class="mood-title">Ton mood du jour ?</h3>
+      <p class="mood-subtitle">Hier t'étais triste, ça va mieux?</p>
+    </div>
+  </div>
+
+  <div class="mood-grid">
+    @for (mood of moods; track mood.id) {
+      <button
+        class="mood-item"
+        [class.active]="selected() === mood.id"
+        (click)="select(mood)"
+        [attr.aria-label]="mood.label"
+      >
+        <span class="mood-emoji" [innerHTML]="mood.emoji"></span>
+        <span class="mood-label">{{ mood.label }}</span>
+      </button>
+    }
+  </div>
+</div>

@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { Login } from './user/login';
-import { Register } from './user/register/register';
-import { Home } from './home/home';
-import { Messages } from './messages/messages';
-import { Upload } from './upload/upload';
-import { Profile } from './profile/profile';
-import { authGuard } from './auth.guard';
+import { Login } from './features/auth/login/login';
+import { Register } from './features/auth/register/register';
+import { Home } from './features/home/home';
+import { Messages } from './features/messages/messages';
+import { Upload } from './features/upload/upload';
+import { Profile } from './features/profile/profile';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   { path: 'login', component: Login },

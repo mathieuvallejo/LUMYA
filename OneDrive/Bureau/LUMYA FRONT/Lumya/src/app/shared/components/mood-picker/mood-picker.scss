@@ -1,0 +1,80 @@
+.mood-card {
+  background: #F28B74;
+  border-radius: 24px;
+  padding: 28px 24px 24px;
+  max-width: 480px;
+}
+
+.mood-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mood-icon {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 26px;
+    color: #333;
+  }
+}
+
+.mood-title-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: Poppins, sans-serif;
+}
+
+.mood-title {
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  font-family: Poppins, sans-serif;
+}
+
+.mood-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(26, 26, 26, 0.75);
+}
+
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.mood-item {
+  background: #fff;
+  border: 3px solid transparent;
+  border-radius: 20px;
+  padding: 16px 8px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  &.active {
+    border-color: #f8f8f8;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+

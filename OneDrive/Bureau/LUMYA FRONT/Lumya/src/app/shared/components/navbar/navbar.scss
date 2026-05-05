@@ -78,6 +78,7 @@
 
 @media (min-width: 768px) {
   .navbar {
+    
     bottom: auto;
     top: 15px;
     left: 15px;
@@ -92,11 +93,12 @@
     border: none;
     box-shadow: none;
     background-color: transparent;
-
+    
     .nav-menu {
       flex-direction: column;
       gap: 8px;
       padding-top: 60px;
+     
       align-items: flex-start;
     }
 

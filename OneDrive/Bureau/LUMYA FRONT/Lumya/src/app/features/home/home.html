@@ -34,7 +34,9 @@
       </div>
 
       <div class="action-item">
-        <button class="like-button"><i class="fa-solid fa-heart"></i></button>
+        <button class="like-button" >
+          <i class="fa-solid fa-heart" [style.color]="isLiked(video.idVideo!) ? '#ff2b54' : 'white'"></i>
+        </button>
         <span class="action-count">{{ formatCount(video.nbVues) }}</span>
       </div>
 
