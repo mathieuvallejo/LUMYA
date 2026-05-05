@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-profile',
-  standalone: true,
-  templateUrl: './profile.html',
-  styleUrl: './profile.scss'
-})
-export class Profile {
-
-}
-=======
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -103,4 +90,3 @@ export class Profile {
 
 
 }
->>>>>>> 2d3d81a964a8829075ca4d26731e3882aea43f56
