@@ -1,5 +1,7 @@
-import { Component, signal, output } from '@angular/core';
+import { Component, signal, output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HumeurService } from '../../../core/services/humeur.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 export interface Mood {
   id: string;
@@ -15,7 +17,12 @@ export interface Mood {
   styleUrl: './mood-picker.scss'
 })
 export class MoodPicker {
+  private humeurService = inject(HumeurService);
+  private authService = inject(AuthService);
+
   selected = signal<string | null>(null);
+  saving = signal(false);
+  saved = signal(false);
   moodSelected = output<Mood>();
 
   moods: Mood[] = [
@@ -28,7 +35,20 @@ export class MoodPicker {
   ];
 
   select(mood: Mood) {
+    const user = this.authService.getCurrentUser();
+    if (!user?.id || this.saving()) return;
+
     this.selected.set(mood.id);
-    this.moodSelected.emit(mood);
+    this.saving.set(true);
+
+    this.humeurService.create(mood.id, user.id).subscribe({
+      next: () => {
+        this.saving.set(false);
+        this.saved.set(true);
+        this.moodSelected.emit(mood);
+        setTimeout(() => this.saved.set(false), 2500);
+      },
+      error: () => this.saving.set(false),
+    });
   }
 }

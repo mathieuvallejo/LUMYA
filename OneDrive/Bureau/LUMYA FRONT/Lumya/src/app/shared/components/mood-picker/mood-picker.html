@@ -9,11 +9,12 @@
     </div>
   </div>
 
-  <div class="mood-grid">
+  <div class="mood-grid" [class.has-selection]="selected() !== null">
     @for (mood of moods; track mood.id) {
       <button
         class="mood-item"
         [class.active]="selected() === mood.id"
+        [disabled]="saving()"
         (click)="select(mood)"
         [attr.aria-label]="mood.label"
       >
@@ -22,4 +23,11 @@
       </button>
     }
   </div>
+
+  @if (saving()) {
+    <p class="mood-feedback saving">Enregistrement...</p>
+  }
+  @if (saved()) {
+    <p class="mood-feedback success">Mood enregistré ✓</p>
+  }
 </div>
