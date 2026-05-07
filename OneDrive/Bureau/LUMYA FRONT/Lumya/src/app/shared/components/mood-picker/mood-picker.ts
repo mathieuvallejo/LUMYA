@@ -31,7 +31,7 @@ export class MoodPicker {
     { id: 'colere',   label: 'En colère', emoji: '<img src="https://i.imgur.com/786qQXL.png" alt="Colère">' },
     { id: 'triste',   label: 'Triste',    emoji: '<img src="https://i.imgur.com/JtcBrS8.png" alt="Triste">' },
     { id: 'stresse',  label: 'Stressé',   emoji: '<img src="https://i.imgur.com/7xtM6Gn.png" alt="Stressé">' },
-    { id: 'heureux',  label: 'Heureux',   emoji: '<img src="https://i.imgur.com/pezGxZS.png" alt="Heureux">' },
+    { id: 'joie',  label: 'joie',   emoji: '<img src="https://i.imgur.com/pezGxZS.png" alt="joie">' },
   ];
 
   select(mood: Mood) {
