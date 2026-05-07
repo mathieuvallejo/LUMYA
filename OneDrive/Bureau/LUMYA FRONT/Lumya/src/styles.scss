@@ -8,6 +8,16 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.snack-success .mdc-snackbar__surface {
+  background-color: #4caf50 !important;
+  color: #fff !important;
+}
+
+.snack-error .mdc-snackbar__surface {
+  background-color: #f44336 !important;
+  color: #fff !important;
+}
+
 html, body {
   font-family: 'Poppins', sans-serif;
 } 
