@@ -1,11 +1,19 @@
 .messages-container {
   padding: 20px;
-  color: #F8F8F8;
-  background: #1E1E1E;
+  color: #1a1a1a;
+  background: #FFFFFF;
   min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
 
   h1 {
     margin-top: 20px;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #1a1a1a;
+  }
+
+  p {
+    color: rgba(26, 26, 26, 0.6);
   }
 }
 

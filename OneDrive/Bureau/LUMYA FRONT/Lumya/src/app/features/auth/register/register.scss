@@ -1,15 +1,16 @@
 .login-form-wrapper {
-  display: block;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   background-image: url('https://i.imgur.com/wF4UB9q.png') !important;
   background-size: cover !important;
-  background-position: center !important;
-  background-attachment: fixed !important;
+  background-position: center top !important;
+  background-attachment: scroll !important;
   background-repeat: no-repeat !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  position: relative;
 }
 
 app-auth-pop {
@@ -118,10 +119,9 @@ form {
 
 @media (min-width: 768px) {
   .login-form-wrapper {
-    background-size: contain !important;
-    background-position: center !important;
-    background-attachment: scroll !important;
-    background-color: #1E1E1E !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
   }
 
   app-auth-pop {

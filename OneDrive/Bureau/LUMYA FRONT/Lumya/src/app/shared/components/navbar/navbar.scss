@@ -7,11 +7,12 @@
   transform: translateX(-50%);
   width: auto;
   max-width: calc(100% - 30px);
-  padding: 6px 6px 6px 6px;
-  backdrop-filter: blur(19.8px);
-  -webkit-backdrop-filter: blur(19.8px);
-  border: 1px solid rgba(255, 255, 255, 0.30);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
   border-radius: 32px;
 
   .nav-menu {
@@ -33,14 +34,14 @@
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
-    color: #F8F8F8;
+    color: #1a1a1a;
     background-color: transparent;
     text-decoration: none;
     position: relative;
 
     i {
       font-size: 20px;
-      color: #F8F8F8;
+      color: #1a1a1a;
       transition: all 0.3s ease;
     }
 
@@ -57,16 +58,16 @@
     }
 
     &:hover {
-      background-color: rgba(250, 34, 58, 0.15);
+      background-color: rgba(250, 34, 58, 0.1);
       transform: scale(1.1);
 
       i {
-        color: #F8F8F8;
+        color: #FA223A;
       }
     }
 
     &.active {
-      background-color: rgba(250, 34, 58, 0.3);
+      background-color: rgba(250, 34, 58, 0.12);
 
       i {
         color: #FA223A;
@@ -78,7 +79,6 @@
 
 @media (min-width: 768px) {
   .navbar {
-    
     bottom: auto;
     top: 15px;
     left: 15px;
@@ -93,12 +93,11 @@
     border: none;
     box-shadow: none;
     background-color: transparent;
-    
+
     .nav-menu {
       flex-direction: column;
-      gap: 8px;
+      gap: 4px;
       padding-top: 60px;
-     
       align-items: flex-start;
     }
 
@@ -111,17 +110,19 @@
       justify-content: flex-start;
       gap: 20px;
       font-family: 'Poppins', sans-serif;
+      color: #1a1a1a;
 
       i {
         font-size: 20px;
         min-width: 24px;
+        color: #1a1a1a;
       }
 
       .nav-label {
         display: block;
         font-size: 16px;
         font-weight: 500;
-        color: #F8F8F8;
+        color: #1a1a1a;
         transition: all 0.3s ease;
         white-space: nowrap;
         font-family: 'Poppins', sans-serif;
@@ -136,21 +137,21 @@
       }
 
       &:hover {
-        background-color: rgba(250, 34, 58, 0.15);
+        background-color: rgba(250, 34, 58, 0.08);
         border-radius: 32px;
         transform: none;
 
         i {
-          color: #F8F8F8;
+          color: #FA223A;
         }
 
         .nav-label {
-          color: #F8F8F8;
+          color: #FA223A;
         }
       }
 
       &.active {
-        background-color: rgba(250, 34, 58, 0.3);
+        background-color: rgba(250, 34, 58, 0.1);
         border-radius: 32px;
 
         i {
@@ -159,6 +160,7 @@
 
         .nav-label {
           color: #FA223A;
+          font-weight: 700;
         }
       }
     }
