@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { formatDate } from '@angular/common';
@@ -16,6 +17,7 @@ import { AuthPop } from '../../../shared/components/auth-pop/auth-pop';
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
