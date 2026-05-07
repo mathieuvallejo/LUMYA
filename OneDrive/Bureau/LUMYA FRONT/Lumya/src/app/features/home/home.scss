@@ -53,7 +53,6 @@
 video {
   width: 100%;
   height: 100%;
-  border-radius: 32px;
   object-fit: cover;
 }
 
@@ -194,7 +193,6 @@ video::-webkit-media-controls-current-time-display {}
     width: auto;
     max-width: 420px;
     height: 82vh;
-    border-radius: 28px;
     overflow: hidden;
   }
 
@@ -202,7 +200,6 @@ video::-webkit-media-controls-current-time-display {}
     width: 420px;
     max-width: 420px;
     height: 82vh;
-    border-radius: 28px;
     object-fit: contain;
   }
 

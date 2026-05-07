@@ -8,7 +8,7 @@
   width: auto;
   max-width: calc(100% - 30px);
   padding: 6px;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.549);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -41,7 +41,7 @@
 
     i {
       font-size: 20px;
-      color: #1a1a1a;
+      color: #FFFFFF;
       transition: all 0.3s ease;
     }
 

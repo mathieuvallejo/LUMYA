@@ -231,8 +231,9 @@ form {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 32px;
-  width: 100%;
+  margin: 32px auto 0;
+  width: 80%;
+  align-items: center;
 }
 
 .form-header {
@@ -366,7 +367,7 @@ form {
 
   form {
     padding: 24px 18px;
-    margin-top: 20px;
+    margin: 20px auto 0;
   }
 }
 
