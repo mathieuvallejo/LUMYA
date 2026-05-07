@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Recurse -Force)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(Sort-Object FullName)",
+      "PowerShell($appPath = \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\"; $items = @\\(\\); Get-ChildItem -Recurse -Path $appPath -Force | ForEach-Object { $items += @{ FullPath = $_.FullName; IsDir = $_.PSIsContainer; Size = $_.Length; Name = $_.Name } }; $items | Sort-Object FullPath | ForEach-Object { if \\($_.IsDir\\) { \"[DIR]  \" + $_.FullPath } else { \"[FILE] \" + $_.FullPath + \" \\(\" + $_.Size + \" bytes\\)\" } })",
+      "Bash(git mv *)",
+      "Bash(cp \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\like.ts\" \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\core\\\\services\\\\like.service.ts\")",
+      "Bash(cp \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\like.spec.ts\" \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\core\\\\services\\\\like.service.spec.ts\")",
+      "Bash(git add *)",
+      "Bash(rm \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\like.ts\" \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\like.spec.ts\")",
+      "Bash(cp \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\components\\\\mood-picker\\\\mood-picker.ts\" \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\shared\\\\components\\\\mood-picker\\\\mood-picker.ts\")",
+      "Bash(cp \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\components\\\\mood-picker\\\\mood-picker.html\" \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\shared\\\\components\\\\mood-picker\\\\mood-picker.html\")",
+      "Bash(cp \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\components\\\\mood-picker\\\\mood-picker.scss\" \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\shared\\\\components\\\\mood-picker\\\\mood-picker.scss\")",
+      "Bash(rm -r \"c:\\\\Users\\\\mathi\\\\OneDrive\\\\Bureau\\\\LUMYA FRONT\\\\Lumya\\\\src\\\\app\\\\components\\\\mood-picker\")"
+    ]
+  }
+}
