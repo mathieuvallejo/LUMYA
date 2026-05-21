@@ -5,7 +5,7 @@
 
     <div class="video-content" (click)="togglePlay(i)">
       <div class="video-area">
-        <video #videoRef [attr.src]="video.urlVideo || null" autoplay muted loop></video>
+        <video #videoRef [attr.src]="getVideoUrl(video.urlVideo)" autoplay muted loop></video>
         <div class="play-overlay" [class.visible]="isPaused(i)">
           <i class="fa-solid fa-pause"></i>
         </div>

@@ -25,7 +25,7 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.serverUrl + '/api';
   
   private currentUserSubject = new BehaviorSubject<any>(this.getUserFromStorage());
   public currentUser$ = this.currentUserSubject.asObservable();

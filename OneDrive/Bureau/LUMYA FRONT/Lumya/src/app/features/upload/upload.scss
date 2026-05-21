@@ -15,6 +15,111 @@
   p {
     color: rgba(26, 26, 26, 0.6);
   }
+
+  .upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 500px;
+    margin-top: 24px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    input[type='text'] {
+      padding: 10px 14px;
+      border: 1px solid rgba(26, 26, 26, 0.2);
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+
+      &:focus {
+        border-color: #1a1a1a;
+      }
+    }
+
+    input[type='file'] {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+    }
+  }
+
+  .preview {
+    video {
+      width: 100%;
+      max-height: 280px;
+      border-radius: 10px;
+      background: #000;
+    }
+  }
+
+  .progress-container {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    background: rgba(26, 26, 26, 0.12);
+    border-radius: 999px;
+    overflow: hidden;
+
+    .progress-bar {
+      height: 100%;
+      background: #1a1a1a;
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-label {
+      position: absolute;
+      right: 0;
+      top: 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(26, 26, 26, 0.6);
+    }
+  }
+
+  .success {
+    color: #2e7d32;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .error {
+    color: #c62828;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  button[type='submit'] {
+    padding: 12px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+      opacity: 0.85;
+    }
+  }
 }
 
 @media (max-width: 767px) {

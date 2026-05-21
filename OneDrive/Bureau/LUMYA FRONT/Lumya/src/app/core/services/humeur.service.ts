@@ -13,7 +13,7 @@ export interface Humeur {
   providedIn: 'root',
 })
 export class HumeurService {
-  private apiUrl = `${environment.apiUrl}/humeur`;
+  private apiUrl = `${environment.serverUrl }/api/humeur`;
 
   constructor(private http: HttpClient) {}
 

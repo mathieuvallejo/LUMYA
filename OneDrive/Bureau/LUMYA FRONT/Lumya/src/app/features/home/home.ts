@@ -4,6 +4,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { AuthResponse } from '../../core/services/auth.service';
 import { VideoService, Video } from '../../core/services/video.service';
 import { LikeService } from '../../core/services/like.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ import { LikeService } from '../../core/services/like.service';
   styleUrl: './home.scss'
 })
 export class Home implements OnInit {
+  serverUrl = environment.serverUrl;
   user = signal<AuthResponse | null>(null);
   videos = signal<Video[]>([]);
   pausedStates = signal<Set<number>>(new Set());
@@ -78,6 +80,11 @@ export class Home implements OnInit {
     if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
     if (n >= 1_000) return (n / 1_000).toFixed(1) + 'K';
     return n.toString();
+  }
+
+  getVideoUrl(urlVideo?: string): string {
+    if (!urlVideo) return '';
+    return this.serverUrl + '/' + urlVideo.replace(/^\/+/, '');
   }
 
   scrollToPrev(event: any): void {
