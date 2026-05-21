@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, signal, AfterViewInit, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AuthPop } from '../../shared/components/auth-pop/auth-pop';
 import { AuthService } from '../../core/services/auth.service';
 import { MoodPicker } from '../../shared/components/mood-picker/mood-picker';
+import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
+
+
+Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+
 
 @Component({
   selector: 'app-register',
@@ -31,7 +36,9 @@ import { MoodPicker } from '../../shared/components/mood-picker/mood-picker';
   styleUrl: './profile.scss',
 })
 
-export class Profile {
+export class Profile implements OnInit {
+    @ViewChild('barchart') barChartRef!: ElementRef<HTMLCanvasElement>;
+
   nom = '';
   siret = '';
   verify = signal(false);
@@ -50,12 +57,51 @@ export class Profile {
   displayName = signal('');
   displayDescription = signal('');
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  ngOnInit() {
     const user = this.authService.getCurrentUser();
-    if (user) {
-      this.displayName.set(user.prenom || user.firstName || '');
-      this.displayDescription.set(user.description || '');
+    if (!user) return;
+
+    this.displayName.set(user.prenom || user.firstName || user.name || '');
+    this.displayDescription.set(user.description || '');
+
+    if (user.id) {
+      this.http.get<any>(`http://localhost:3000/api/users/${user.id}`).subscribe({
+        next: (data) => {
+          this.displayName.set(data.prenom || data.firstName || data.name || '');
+          this.displayDescription.set(data.description || '');
+          const updated = { ...user, ...data };
+          this.authService.updateCurrentUser(updated);
+          localStorage.setItem('user', JSON.stringify(updated));
+        },
+        error: () => {}
+      });
     }
+  }
+
+  ngAfterViewInit() {
+    new Chart(this.barChartRef.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: ['Triste', 'Joie', 'Anxiété'],
+        datasets: [{
+          label: 'Nombre de fois',
+          data: [12, 13, 14],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+          ],
+          borderWidth: 1
+        }]
+      }
+    });
   }
 
   openEditModal() {
