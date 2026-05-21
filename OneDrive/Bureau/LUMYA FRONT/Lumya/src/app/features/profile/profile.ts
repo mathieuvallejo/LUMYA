@@ -44,11 +44,63 @@ export class Profile {
   editPrenom = '';
   editDateNaissance = '';
   editDescription = '';
+  saveLoading = signal(false);
+  saveMessage = signal('');
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  displayName = signal('');
+  displayDescription = signal('');
 
-  openEditModal() { this.showEditModal.set(true); }
+  constructor(private http: HttpClient, private authService: AuthService) {
+    const user = this.authService.getCurrentUser();
+    if (user) {
+      this.displayName.set(user.prenom || user.firstName || '');
+      this.displayDescription.set(user.description || '');
+    }
+  }
+
+  openEditModal() {
+    const user = this.authService.getCurrentUser();
+    if (user) {
+      this.editPrenom = user.prenom || user.firstName || '';
+      this.editNom = user.nom || user.lastName || '';
+      this.editDateNaissance = user.dateNaissance || user.date || '';
+      this.editDescription = user.description || '';
+    }
+    this.saveMessage.set('');
+    this.showEditModal.set(true);
+  }
   closeEditModal() { this.showEditModal.set(false); }
+
+  saveProfile() {
+    const user = this.authService.getCurrentUser();
+    if (!user?.id) return;
+
+    this.saveLoading.set(true);
+    this.saveMessage.set('');
+
+    const payload: any = {
+      prenom: this.editPrenom,
+      nom: this.editNom,
+      description: this.editDescription,
+    };
+    if (this.editDateNaissance) payload['date'] = this.editDateNaissance;
+
+    this.http.put(`http://localhost:3000/api/users/${user.id}`, payload).subscribe({
+      next: () => {
+        const updated = { ...user, ...payload, firstName: payload.prenom, lastName: payload.nom };
+        localStorage.setItem('user', JSON.stringify(updated));
+        this.authService.updateCurrentUser(updated);
+        this.displayName.set(payload.prenom);
+        this.displayDescription.set(payload.description);
+        this.saveLoading.set(false);
+        this.closeEditModal();
+      },
+      error: () => {
+        this.saveMessage.set('Erreur lors de la sauvegarde');
+        this.saveLoading.set(false);
+      }
+    });
+  }
   openSiretModal() { this.showSiretModal.set(true); }
   closeSiretModal() { this.showSiretModal.set(false); }
   openNumModal() { this.showNumModal.set(true); }

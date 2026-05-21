@@ -13,8 +13,8 @@
         </div>
 
         <div class="profile-info-section">
-          <h3 class="profile-name"> Mathieu </h3>
-          <p class="profile-description"> Salut ! Je suis étudiant</p>
+          <h3 class="profile-name">{{ displayName() }}</h3>
+          <p class="profile-description">{{ displayDescription() }}</p>
         </div>
 
         <div class="profile-stats-section">
@@ -73,8 +73,13 @@
             </div>
 
             <div class="modal-footer">
+              @if (saveMessage()) {
+                <span class="save-error">{{ saveMessage() }}</span>
+              }
               <button class="modal-cancel-btn" (click)="closeEditModal()">Annuler</button>
-              <button class="modal-save-btn">Enregistrer</button>
+              <button class="modal-save-btn" (click)="saveProfile()" [disabled]="saveLoading()">
+                {{ saveLoading() ? 'Enregistrement...' : 'Enregistrer' }}
+              </button>
             </div>
           </div>
         </div>

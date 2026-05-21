@@ -71,6 +71,10 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  updateCurrentUser(user: any) {
+    this.currentUserSubject.next(user);
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
   }
