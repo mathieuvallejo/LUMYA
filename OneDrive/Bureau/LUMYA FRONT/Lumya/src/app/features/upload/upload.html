@@ -1,4 +1,52 @@
 <div class="upload-container">
   <h1>Ajouter une vidéo</h1>
   <p>Uploadez votre vidéo ici</p>
+
+  <form (ngSubmit)="onSubmit()" class="upload-form">
+    <div class="form-group">
+      <label for="titre">Titre</label>
+      <input
+        id="titre"
+        type="text"
+        [(ngModel)]="titre"
+        name="titre"
+        placeholder="Titre de la vidéo"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="video">Fichier vidéo</label>
+      <input
+        id="video"
+        type="file"
+        accept=".mp4,.mov,.avi,.mkv,.webm"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+
+    @if (previewUrl) {
+      <div class="preview">
+        <video [src]="previewUrl" controls></video>
+      </div>
+    }
+
+    @if (uploading) {
+      <div class="progress-container">
+        <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+        <span class="progress-label">{{ uploadProgress }}%</span>
+      </div>
+    }
+
+    @if (successMessage) {
+      <div class="success">{{ successMessage }}</div>
+    }
+    @if (errorMessage) {
+      <div class="error">{{ errorMessage }}</div>
+    }
+
+    <button type="submit" [disabled]="!titre.trim() || !selectedFile || uploading">
+      {{ uploading ? 'Upload en cours...' : 'Publier la vidéo' }}
+    </button>
+  </form>
 </div>

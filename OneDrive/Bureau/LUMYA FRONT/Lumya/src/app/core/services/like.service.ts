@@ -16,7 +16,7 @@ export interface Video {
   providedIn: 'root',
 })
 export class LikeService {
-  private apiUrl = `${environment.apiUrl}/like`;
+  private apiUrl = `${environment.serverUrl }/api/like`;
 
   constructor(private http: HttpClient) {}
 
