@@ -14,7 +14,6 @@
 
         <div class="profile-info-section">
           <h3 class="profile-name">{{ displayName() }}</h3>
-          <p class="profile-description">{{ displayDescription() }}</p>
         </div>
 
         <div class="profile-stats-section">
@@ -62,14 +61,16 @@
               </div>
 
               <div class="modal-field-group">
+                <label class="modal-label">Email</label>
+                <input class="modal-input" type="email" [(ngModel)]="editEmail" name="editEmail" placeholder="Votre email">
+              </div>
+
+              <div class="modal-field-group">
                 <label class="modal-label">Date de naissance</label>
                 <input class="modal-input" type="date" [(ngModel)]="editDateNaissance" name="editDateNaissance">
               </div>
 
-              <div class="modal-field-group">
-                <label class="modal-label">Description du profil</label>
-                <textarea class="modal-input modal-textarea" [(ngModel)]="editDescription" name="editDescription" placeholder="Parlez-nous de vous..."></textarea>
-              </div>
+
             </div>
 
             <div class="modal-footer">

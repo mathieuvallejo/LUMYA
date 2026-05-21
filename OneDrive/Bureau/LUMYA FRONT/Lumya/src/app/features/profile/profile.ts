@@ -49,13 +49,12 @@ export class Profile implements OnInit {
   showNumModal = signal(false);
   editNom = '';
   editPrenom = '';
+  editEmail = '';
   editDateNaissance = '';
-  editDescription = '';
   saveLoading = signal(false);
   saveMessage = signal('');
 
   displayName = signal('');
-  displayDescription = signal('');
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -64,13 +63,11 @@ export class Profile implements OnInit {
     if (!user) return;
 
     this.displayName.set(user.prenom || user.firstName || user.name || '');
-    this.displayDescription.set(user.description || '');
 
     if (user.id) {
       this.http.get<any>(`http://localhost:3000/api/users/${user.id}`).subscribe({
         next: (data) => {
           this.displayName.set(data.prenom || data.firstName || data.name || '');
-          this.displayDescription.set(data.description || '');
           const updated = { ...user, ...data };
           this.authService.updateCurrentUser(updated);
           localStorage.setItem('user', JSON.stringify(updated));
@@ -107,10 +104,10 @@ export class Profile implements OnInit {
   openEditModal() {
     const user = this.authService.getCurrentUser();
     if (user) {
-      this.editPrenom = user.prenom || user.firstName || '';
+      this.editPrenom = user.prenom || user.firstName || this.displayName() || '';
       this.editNom = user.nom || user.lastName || '';
+      this.editEmail = user.email || '';
       this.editDateNaissance = user.dateNaissance || user.date || '';
-      this.editDescription = user.description || '';
     }
     this.saveMessage.set('');
     this.showEditModal.set(true);
@@ -124,20 +121,18 @@ export class Profile implements OnInit {
     this.saveLoading.set(true);
     this.saveMessage.set('');
 
-    const payload: any = {
-      prenom: this.editPrenom,
-      nom: this.editNom,
-      description: this.editDescription,
-    };
+    const payload: any = {};
+    if (this.editPrenom) payload['prenom'] = this.editPrenom;
+    if (this.editNom) payload['nom'] = this.editNom;
+    if (this.editEmail) payload['email'] = this.editEmail;
     if (this.editDateNaissance) payload['date'] = this.editDateNaissance;
 
     this.http.put(`http://localhost:3000/api/users/${user.id}`, payload).subscribe({
       next: () => {
-        const updated = { ...user, ...payload, firstName: payload.prenom, lastName: payload.nom };
+        const updated = { ...user, ...payload, firstName: payload.prenom ?? user.prenom ?? user.firstName, lastName: payload.nom ?? user.nom ?? user.lastName };
         localStorage.setItem('user', JSON.stringify(updated));
         this.authService.updateCurrentUser(updated);
-        this.displayName.set(payload.prenom);
-        this.displayDescription.set(payload.description);
+        if (payload.prenom) this.displayName.set(payload.prenom);
         this.saveLoading.set(false);
         this.closeEditModal();
       },
