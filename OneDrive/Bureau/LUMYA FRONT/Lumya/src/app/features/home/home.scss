@@ -87,7 +87,7 @@ video::-webkit-media-controls-current-time-display {}
   display: none;
 }
 
-// Pill d'actions (profil, like, comment)
+
 
 .buttons-container {
   display: flex;
@@ -99,13 +99,13 @@ video::-webkit-media-controls-current-time-display {}
   top: 50%;
   transform: translateY(-50%);
   z-index: 20;
-  padding: 8px 6px;
+  padding: 4px 3px;
   border-radius: 32px;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
 .action-item {
@@ -113,6 +113,7 @@ video::-webkit-media-controls-current-time-display {}
   flex-direction: column;
   align-items: center;
   gap: 1px;
+  
   padding: 4px 2px;
 }
 
@@ -153,7 +154,7 @@ video::-webkit-media-controls-current-time-display {}
   align-items: center;
   justify-content: center;
   transition: background 0.2s ease, transform 0.2s ease;
-  color: #1a1a1a;
+  color: #f8f8f8;
   background-color: transparent;
 
   i { font-size: 20px; }
@@ -168,7 +169,7 @@ video::-webkit-media-controls-current-time-display {}
   display: none;
   font-size: 11px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #f8f8f8;
   letter-spacing: -0.3px;
 }
 
@@ -247,6 +248,12 @@ video::-webkit-media-controls-current-time-display {}
     transform: translateY(-50%);
     gap: 0;
     padding: 12px 10px;
+    border-radius: 32px;
+    background: rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   }
 
   .action-item {
@@ -280,15 +287,20 @@ video::-webkit-media-controls-current-time-display {}
   .comment-button {
     width: 40px;
     height: 40px;
+    color: #f8f8f8;
 
-    i { font-size: 24px; }
+    i {
+      font-size: 24px;
+      filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.6));
+    }
   }
 
   .action-count {
     display: block;
     font-size: 12px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #f8f8f8;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   }
 
   .prev-arrow,

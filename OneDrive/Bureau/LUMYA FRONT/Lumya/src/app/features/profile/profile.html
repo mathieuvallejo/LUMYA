@@ -1,81 +1,205 @@
 
-
 <div class="profil">
   <div class="profile-container">
     <div class="page-content">
-    <h2>Espace personnel</h2>
+      <h2>Espace personnel</h2>
 
-    <div class="profile-card">
-      <div class="profile-photo-wrapper">
-        <img src="https://i.pinimg.com/736x/02/3c/78/023c7839633d38b5951066e268dd4475.jpg" alt="Photo de profil" class="profile-photo">
-      </div>
-
-      <div class="profile-info-section">
-        <h3 class="profile-name"> Mathieu </h3>
-        <p class="profile-description"> Salut ! Je suis étudiant</p>
-      </div>
-
-      <div class="profile-stats-section">
-        <div class="stat-item">
-          <div class="stat-number"> 5</div>
-          <div class="stat-label">Vidéos</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number"> 1000 </div>
-          <div class="stat-label">Suivi(e)s</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="profile-class">
-      <app-mood-picker></app-mood-picker>
-
-      <div class="right-cards">
-        <div class="sleep-card">
-          <h3 class="sleep-title">Ton sommeil</h3>
-          <p class="sleep-subtitle">Regarde l'évolution de ton sommeil</p>
-          <button class="card-link-btn">Check ça <i class="fa-solid fa-arrow-right"></i></button>
+      <div class="profile-card">
+        <div class="profile-photo-wrapper">
+          <img src="https://i.pinimg.com/736x/02/3c/78/023c7839633d38b5951066e268dd4475.jpg" alt="Photo de profil" class="profile-photo">
+          <button class="edit-photo-btn" (click)="openEditModal()">
+            <i class="fa-solid fa-pen"></i>
+          </button>
         </div>
 
-        <div class="help-card">
-          <h3 class="help-title">Besoin d'aide ?</h3>
-          <p class="help-subtitle">Les numéros d'urgences sont disponibles pour <strong>toi</strong>.</p>
-          <button class="card-link-btn">Les num's <i class="fa-solid fa-arrow-right"></i></button>
+        <div class="profile-info-section">
+          <h3 class="profile-name"> Mathieu </h3>
+          <p class="profile-description"> Salut ! Je suis étudiant</p>
         </div>
-      </div>
-    </div>
 
-    <!-- Form SIRET OPEN DATA -->
-
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-header">
-        <div class="form-header-text">
-          <h3>Compte Professionnel</h3>
-          <p class="form-subtitle">Rejoignez Lumya en tant que pro</p>
+        <div class="profile-stats-section">
+          <div class="stat-item">
+            <div class="stat-number"> 5</div>
+            <div class="stat-label">Vidéos</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number"> 1000 </div>
+            <div class="stat-label">Suivi(e)s</div>
+          </div>
         </div>
       </div>
 
-      <div class="form-row">
-        <mat-form-field class="custom-form-field">
-          <mat-label>Nom</mat-label>
-          <input matInput type="text" required [(ngModel)]="nom" name="nom">
-        </mat-form-field>
+      @if (showEditModal()) {
+        <div class="modal-overlay" (click)="closeEditModal()">
+          <div class="modal-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+              <h3>Modifier mon profil</h3>
+              <button class="modal-close-btn" (click)="closeEditModal()">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
 
-        <mat-form-field class="custom-form-field">
-          <mat-label>Numéro SIRET</mat-label>
-          <input matInput type="text" required [(ngModel)]="siret" name="siret">
-        </mat-form-field>
-      </div>
+            <div class="modal-body">
+              <div class="modal-photo-row">
+                <div class="modal-photo-circle">
+                  <img src="https://i.pinimg.com/736x/02/3c/78/023c7839633d38b5951066e268dd4475.jpg" alt="Photo de profil">
+                </div>
+                <label class="modal-photo-btn">
+                  Modifier la photo
+                  <input type="file" accept="image/*" hidden>
+                </label>
+              </div>
 
-      <button mat-raised-button class="custom-button" type="submit" [disabled]="verify()">
-      
-        {{ verify() ? 'Création en cours...' : 'Créer le compte' }}
-      </button>
+              <div class="modal-field-row">
+                <div class="modal-field-group">
+                  <label class="modal-label">Nom</label>
+                  <input class="modal-input" type="text" [(ngModel)]="editNom" name="editNom" placeholder="Votre nom">
+                </div>
+                <div class="modal-field-group">
+                  <label class="modal-label">Prénom</label>
+                  <input class="modal-input" type="text" [(ngModel)]="editPrenom" name="editPrenom" placeholder="Votre prénom">
+                </div>
+              </div>
 
-      @if (message()) {
-        <div [ngClass]="messageType()">{{ message() }}</div>
+              <div class="modal-field-group">
+                <label class="modal-label">Date de naissance</label>
+                <input class="modal-input" type="date" [(ngModel)]="editDateNaissance" name="editDateNaissance">
+              </div>
+
+              <div class="modal-field-group">
+                <label class="modal-label">Description du profil</label>
+                <textarea class="modal-input modal-textarea" [(ngModel)]="editDescription" name="editDescription" placeholder="Parlez-nous de vous..."></textarea>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button class="modal-cancel-btn" (click)="closeEditModal()">Annuler</button>
+              <button class="modal-save-btn">Enregistrer</button>
+            </div>
+          </div>
+        </div>
       }
-    </form>
+
+      <div class="profile-class">
+        <app-mood-picker></app-mood-picker>
+
+        <div class="right-cards">
+    
+          <div class="sleep-card">
+            <h3 class="sleep-title">Évolution du Mood</h3>
+            <p class="sleep-subtitle">Regarde l'évolution de tes humeurs</p>
+           
+
+
+
+            <canvas id="MoodChart" width="400" height="400"> </canvas>
+            <script>
+              const ctx = document.getElementById('barchart').getContext('2d');
+              const barchart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                  labels: ['Red', 'Blue', 'Yellow']
+                  datase 
+                }
+              })
+            </script>
+</div>
+            <button class="card-link-btn">Bientôt disponible</button>
+          </div>
+
+          <div class="help-card">
+            <h3 class="help-title">Besoin d'aide ? </h3>
+            <p class="help-subtitle">Les numéros d'urgences sont disponibles pour <strong>toi</strong>.</p>
+            <button class="card-link-btn" (click)="openNumModal()">Les numéros d'urgences <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+
+        </div>
+      </div>
+      @if (showNumModal()) {
+        <div class="modal-overlay" (click)="closeNumModal()">
+          <div class="modal-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+              <h3>Numéros d'urgences</h3>
+              <button class="modal-close-btn" (click)="closeNumModal()">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="siret-modal-subtitle">Retrouvez les numéros d'urgences pour obtenir de l'aide en cas de besoin.</p>
+              <ul class="emergency-numbers-list">
+                <li><a href="tel:15" class="callEmergency"><i class="fa-solid fa-phone"></i><strong>15</strong></a>  - Samu</li>
+                <li><a href="tel:17" class="callEmergency"><i class="fa-solid fa-phone"></i><strong>17</strong></a>  - Police</li>
+                <li><a href="tel:112" class="callEmergency"><i class="fa-solid fa-phone"></i><strong>18</strong></a>  - Pompier</li>
+                <li><a href="tel:114" class="callEmergency"><i class="fa-solid fa-phone"></i><strong>114</strong></a>  - Urgence (Pour les personnes sourdes, malentendantes, aphasiques)</li>
+                <li><a href="tel:112" class="callEmergency"><i class="fa-solid fa-phone"></i><strong>112</strong></a>  - Urgence médicale Européenne </li>
+                <li><a href="tel:0 800 858 858" class="callEmergency"><i class="fa-solid fa-phone"></i><strong>0 800 858 858</strong></a> - Urgence Européenne </li>
+                <li><a href="tel:3114" class="callEmergency"><i class="fa-solid fa-phone"></i><strong>3114</strong></a> - Numéro de prévention suicide </li>
+                
+
+
+
+                
+              </ul>
+              <button type="button" class="siret-cancel-link" (click)="closeNumModal()">Fermer</button>
+            </div>
+          </div>
+        </div>
+      }
+
+      <div class="pro-trigger-card" role="button" tabindex="0" (click)="openSiretModal()">
+        <div class="pro-trigger-left">
+        
+          <div class="pro-trigger-text">
+            <span class="pro-trigger-title">Êtes-vous un professionnel ?</span>
+            <span class="pro-trigger-sub">Rejoignez Lumya en tant que pro</span>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right pro-trigger-arrow"></i>
+      </div>
+
+      @if (showSiretModal()) {
+        <div class="modal-overlay" (click)="closeSiretModal()">
+          <div class="modal-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+              <h3>Compte Professionnel</h3>
+              <button class="modal-close-btn" (click)="closeSiretModal()">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <p class="siret-modal-subtitle">Rejoignez Lumya en tant que professionnel en renseignant vos informations.</p>
+
+              <form (ngSubmit)="onSubmit()">
+                <mat-form-field class="custom-form-field">
+                  <mat-label>Nom</mat-label>
+                  <input matInput type="text" required [(ngModel)]="nom" name="nom">
+                </mat-form-field>
+
+                <mat-form-field class="custom-form-field">
+                  <mat-label>Numéro SIRET</mat-label>
+                  <input matInput type="text" required [(ngModel)]="siret" name="siret">
+                </mat-form-field>
+
+                @if (message()) {
+                  <div [ngClass]="messageType()">{{ message() }}</div>
+                }
+
+                <button mat-raised-button class="custom-button" type="submit" [disabled]="verify()">
+                  {{ verify() ? 'Création en cours...' : 'Créer le compte' }}
+                </button>
+
+                <button type="button" class="siret-cancel-link" (click)="closeSiretModal()">Annuler</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      }
+
+      <div class="rgpd-section">
+        <button class="rgpd-link">Demander la suppression de mes données</button>
+        <button class="rgpd-link">Demander un export de mes données</button>
+      </div>
     </div>
   </div>
 </div>

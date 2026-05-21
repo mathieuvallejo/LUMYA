@@ -37,10 +37,22 @@ export class Profile {
   verify = signal(false);
   message = signal('');
   messageType = signal<'success' | 'error' | ''>('');
+  showEditModal = signal(false);
+  showSiretModal = signal(false);
+  showNumModal = signal(false);
+  editNom = '';
+  editPrenom = '';
+  editDateNaissance = '';
+  editDescription = '';
 
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-  }
+  openEditModal() { this.showEditModal.set(true); }
+  closeEditModal() { this.showEditModal.set(false); }
+  openSiretModal() { this.showSiretModal.set(true); }
+  closeSiretModal() { this.showSiretModal.set(false); }
+  openNumModal() { this.showNumModal.set(true); }
+  closeNumModal() { this.showNumModal.set(false); }
 
   onSubmit() {
     if (!this.nom || !this.siret) {
