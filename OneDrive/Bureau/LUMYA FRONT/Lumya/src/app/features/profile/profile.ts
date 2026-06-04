@@ -11,6 +11,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AuthPop } from '../../shared/components/auth-pop/auth-pop';
 import { AuthService } from '../../core/services/auth.service';
 import { MoodPicker } from '../../shared/components/mood-picker/mood-picker';
+import { environment } from '../../../environments/environment';
+import { PrefererService, Preference } from '../../core/services/preferer.service';
+import { Router } from '@angular/router';
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 
 
@@ -55,26 +58,93 @@ export class Profile implements OnInit {
   saveMessage = signal('');
 
   displayName = signal('');
+  profilePhotoUrl = signal<string>('');
+  userThemes = signal<Preference[]>([]);
+  serverUrl = environment.serverUrl;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private prefererService: PrefererService,
+    private router: Router
+  ) {}
+
+  goToThemes(): void {
+    this.router.navigate(['/themes']);
+  }
+
+  getPhotoUrl(photoProfil?: string): string {
+    if (!photoProfil) return '';
+    return this.serverUrl + '/' + photoProfil.replace(/^\/+/, '');
+  }
 
   ngOnInit() {
     const user = this.authService.getCurrentUser();
+    console.log('[Profile] user depuis localStorage:', user);
     if (!user) return;
 
     this.displayName.set(user.prenom || user.firstName || user.name || '');
+    if (user.pdp) {
+      this.profilePhotoUrl.set(this.getPhotoUrl(user.pdp));
+      console.log('[Profile] photo depuis localStorage:', this.profilePhotoUrl());
+    }
 
     if (user.id) {
-      this.http.get<any>(`http://localhost:3000/api/users/${user.id}`).subscribe({
+      this.prefererService.getByUser(user.id).subscribe({
+        next: prefs => this.userThemes.set(prefs),
+        error: () => {}
+      });
+
+      this.http.get<any>(`${this.serverUrl}/api/users/${user.id}`).subscribe({
         next: (data) => {
+          console.log('[Profile] réponse GET /api/users/:id :', data);
           this.displayName.set(data.prenom || data.firstName || data.name || '');
+          if (data.pdp) {
+            this.profilePhotoUrl.set(this.getPhotoUrl(data.pdp));
+            console.log('[Profile] URL photo construite:', this.profilePhotoUrl());
+          } else {
+            console.warn('[Profile] pdp absent dans la réponse API');
+          }
           const updated = { ...user, ...data };
           this.authService.updateCurrentUser(updated);
           localStorage.setItem('user', JSON.stringify(updated));
         },
-        error: () => {}
+        error: (err) => console.error('[Profile] erreur GET user:', err)
       });
     }
+  }
+
+  onPhotoSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+
+    const user = this.authService.getCurrentUser();
+    if (!user?.id) return;
+
+    console.log('[Profile] fichier sélectionné:', file.name, file.type, file.size);
+
+    const reader = new FileReader();
+    reader.onload = (e) => this.profilePhotoUrl.set(e.target?.result as string);
+    reader.readAsDataURL(file);
+
+    const formData = new FormData();
+    formData.append('photo', file);
+
+    this.http.put<any>(`${this.serverUrl}/api/users/${user.id}/pdp`, formData).subscribe({
+      next: (data) => {
+        console.log('[Profile] réponse PUT /pdp:', data);
+        if (data?.pdp) {
+          this.profilePhotoUrl.set(this.getPhotoUrl(data.pdp));
+          console.log('[Profile] URL photo après upload:', this.profilePhotoUrl());
+          const updated = { ...user, pdp: data.pdp };
+          this.authService.updateCurrentUser(updated);
+          localStorage.setItem('user', JSON.stringify(updated));
+        } else {
+          console.warn('[Profile] pdp absent dans la réponse PUT');
+        }
+      },
+      error: (err) => console.error('[Profile] erreur upload photo:', err)
+    });
   }
 
   ngAfterViewInit() {

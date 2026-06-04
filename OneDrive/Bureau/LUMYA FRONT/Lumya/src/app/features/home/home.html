@@ -5,7 +5,7 @@
 
     <div class="video-content" (click)="togglePlay(i)">
       <div class="video-area">
-        <video #videoRef [attr.src]="getVideoUrl(video.urlVideo)" autoplay muted loop></video>
+        <video #videoRef [attr.src]="getVideoUrl(video.urlVideo)" muted loop playsinline></video>
         <div class="play-overlay" [class.visible]="isPaused(i)">
           <i class="fa-solid fa-pause"></i>
         </div>
@@ -34,14 +34,16 @@
       </div>
 
       <div class="action-item">
-        <button class="like-button" >
+        <button class="like-button" (click)="toggleLike(video)">
           <i class="fa-solid fa-heart" [style.color]="isLiked(video.idVideo!) ? '#FA223A' : '#f8f8f8'"></i>
         </button>
         <span class="action-count">{{ formatCount(video.nbVues) }}</span>
       </div>
 
       <div class="action-item">
-        <button class="comment-button"><i class="fa-solid fa-comment-dots"></i></button>
+        <button class="comment-button" (click)="$event.stopPropagation(); openComments(video)">
+          <i class="fa-solid fa-comment-dots"></i>
+        </button>
         <span class="action-count">0</span>
       </div>
 
@@ -49,3 +51,10 @@
 
   </div>
 </div>
+
+<app-comment-panel
+  [video]="selectedVideo()"
+  [isOpen]="showComments()"
+  [currentUser]="user()"
+  (closed)="closeComments()"
+></app-comment-panel>

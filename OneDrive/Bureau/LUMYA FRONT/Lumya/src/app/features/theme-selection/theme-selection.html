@@ -1,0 +1,46 @@
+<div class="theme-page">
+
+  <div class="theme-header">
+    <div class="brand">LUMYA</div>
+    <h1>Tes centres d'intérêt</h1>
+    <p>Sélectionne au moins un thème pour personnaliser ton feed</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading">
+      <div class="loading-spinner"></div>
+    </div>
+  } @else {
+    <div class="themes-grid">
+      @for (theme of themes(); track theme.idTheme) {
+        <button
+          class="theme-chip"
+          [class.selected]="isSelected(theme.idTheme)"
+          (click)="toggle(theme.idTheme)"
+        >
+          @if (isSelected(theme.idTheme)) {
+            <span class="check"><i class="fa-solid fa-check"></i></span>
+          }
+          <span class="label">{{ theme.libelle }}</span>
+        </button>
+      }
+    </div>
+
+    <div class="theme-footer">
+      <button
+        class="continue-btn"
+        [disabled]="selectedIds().size === 0 || isSaving()"
+        (click)="save()"
+      >
+        @if (isSaving()) {
+          Enregistrement...
+        } @else if (selectedIds().size === 0) {
+          Choisir au moins 1 thème
+        } @else {
+          Continuer · {{ selectedIds().size }} sélectionné(s)
+        }
+      </button>
+    </div>
+  }
+
+</div>

@@ -6,7 +6,13 @@
 
       <div class="profile-card">
         <div class="profile-photo-wrapper">
-          <img src="https://i.pinimg.com/736x/02/3c/78/023c7839633d38b5951066e268dd4475.jpg" alt="Photo de profil" class="profile-photo">
+          @if (profilePhotoUrl()) {
+            <img [src]="profilePhotoUrl()" alt="Photo de profil" class="profile-photo">
+          } @else {
+            <div class="profile-photo profile-photo-placeholder">
+              <i class="fa-solid fa-user"></i>
+            </div>
+          }
           <button class="edit-photo-btn" (click)="openEditModal()">
             <i class="fa-solid fa-pen"></i>
           </button>
@@ -41,11 +47,13 @@
             <div class="modal-body">
               <div class="modal-photo-row">
                 <div class="modal-photo-circle">
-                  <img src="https://i.pinimg.com/736x/02/3c/78/023c7839633d38b5951066e268dd4475.jpg" alt="Photo de profil">
+                
+                    <img [src]="profilePhotoUrl()" alt="Photo de profil">
+                  
                 </div>
                 <label class="modal-photo-btn">
                   Modifier la photo
-                  <input type="file" accept="image/*" hidden>
+                  <input type="file" accept="image/*" hidden (change)="onPhotoSelected($event)">
                 </label>
               </div>
 
@@ -191,6 +199,21 @@
           </div>
         </div>
       }
+
+      <div class="themes-section">
+        <div class="themes-section-header">
+          <span>Mes centres d'intérêt</span>
+          <button class="themes-edit-btn" (click)="goToThemes()">Modifier</button>
+        </div>
+        <div class="themes-chips">
+          @for (theme of userThemes(); track theme.idTheme) {
+            <span class="theme-chip-profile">{{ theme.libelle }}</span>
+          }
+          @if (userThemes().length === 0) {
+            <span class="themes-empty">Aucun thème sélectionné</span>
+          }
+        </div>
+      </div>
 
       <div class="rgpd-section">
         <button class="rgpd-link">Demander la suppression de mes données</button>

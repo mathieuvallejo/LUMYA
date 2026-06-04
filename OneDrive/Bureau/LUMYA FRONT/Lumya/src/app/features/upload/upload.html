@@ -3,6 +3,7 @@
   <p>Uploadez votre vidéo ici</p>
 
   <form (ngSubmit)="onSubmit()" class="upload-form">
+
     <div class="form-group">
       <label for="titre">Titre</label>
       <input
@@ -13,6 +14,25 @@
         placeholder="Titre de la vidéo"
         required
       />
+    </div>
+
+    <div class="form-group">
+      <label>Thèmes</label>
+      <div class="themes-box">
+        @for (theme of themes(); track theme.idTheme) {
+          <button
+            type="button"
+            class="theme-chip"
+            [class.selected]="isThemeSelected(theme.idTheme)"
+            (click)="toggleTheme(theme.idTheme)"
+          >
+            {{ theme.libelle }}
+          </button>
+        }
+      </div>
+      @if (selectedThemeIds().size > 0) {
+        <span class="theme-hint">{{ selectedThemeIds().size }} thème(s) sélectionné(s)</span>
+      }
     </div>
 
     <div class="form-group">
@@ -48,5 +68,6 @@
     <button type="submit" [disabled]="!titre.trim() || !selectedFile || uploading">
       {{ uploading ? 'Upload en cours...' : 'Publier la vidéo' }}
     </button>
+
   </form>
 </div>

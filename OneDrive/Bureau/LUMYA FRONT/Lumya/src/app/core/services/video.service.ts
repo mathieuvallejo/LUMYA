@@ -25,6 +25,10 @@ export class VideoService {
     return this.http.get<Video[]>(this.apiUrl, { withCredentials: true });
   }
 
+  getFeed(): Observable<Video[]> {
+    return this.http.get<Video[]>(`${this.apiUrl}/feed`, { withCredentials: true });
+  }
+
   getVideoById(id: number): Observable<Video> {
     return this.http.get<Video>(`${this.apiUrl}/${id}`, { withCredentials: true });
   }

@@ -1,0 +1,61 @@
+<div class="overlay" [class.visible]="isOpen" (click)="close()"></div>
+
+<div class="panel" [class.open]="isOpen">
+
+  <div class="panel-header">
+    <div class="drag-bar"></div>
+    <span>{{ comments().length }} commentaires</span>
+    <button class="close-btn" (click)="close()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="comments-list">
+    @if (isLoading()) {
+      <div class="state-msg">Chargement...</div>
+    } @else if (comments().length === 0) {
+      <div class="state-msg">Sois le premier à commenter 👋</div>
+    } @else {
+      @for (comment of comments(); track comment.idCommentaire) {
+        <div class="comment-item">
+          <div class="avatar">
+            @if (comment.userPdp) {
+              <img [src]="comment.userPdp" alt="pdp">
+            } @else {
+              {{ getInitials(comment.userPrenom, comment.userNom) }}
+            }
+          </div>
+          <div class="comment-body">
+            <span class="author">{{ comment.userPrenom }} {{ comment.userNom }}</span>
+            <p class="text">{{ comment.contenuCommentaire }}</p>
+            <span class="date">{{ formatDate(comment.datePost) }}</span>
+          </div>
+          <div class="comment-actions">
+            <button class="like-btn" (click)="toggleCommentLike(comment)">
+              <i class="fa-solid fa-heart" [class.liked]="isCommentLiked(comment.idCommentaire!)"></i>
+            </button>
+            @if (comment.idUser === currentUser?.id) {
+              <button class="delete-btn" (click)="deleteComment(comment)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            }
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <div class="input-bar">
+    <div class="avatar-mini">{{ getInitials(currentUser?.prenom || currentUser?.firstName, currentUser?.nom || currentUser?.lastName) }}</div>
+    <input
+      [(ngModel)]="newComment"
+      placeholder="Ajouter un commentaire..."
+      (keydown.enter)="postComment()"
+      maxlength="500"
+    />
+    <button class="send-btn" [disabled]="!newComment.trim()" (click)="postComment()">
+      <i class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
+
+</div>
