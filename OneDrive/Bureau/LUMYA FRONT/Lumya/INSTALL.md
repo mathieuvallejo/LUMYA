@@ -47,7 +47,7 @@ npm start
 ng serve
 ```
 
-L'application est disponible sur [http://localhost:4200](http://localhost:4200).  
+L'application est disponible sur `http://localhost:4200`.  
 Le rechargement automatique est activé à chaque modification de fichier.
 
 ---
@@ -68,7 +68,7 @@ Les fichiers compilés sont générés dans le dossier `dist/`.
 npm test
 ```
 
-Les tests sont exécutés avec [Vitest](https://vitest.dev/).
+Les tests sont exécutés avec `Vitest`.
 
 ---
 
@@ -112,4 +112,4 @@ Installer Angular CLI globalement : `npm install -g @angular/cli@21`
 Changer de port : `ng serve --port 4300`
 
 **Erreurs de versions Node**  
-Utiliser [nvm](https://github.com/nvm-sh/nvm) pour gérer les versions de Node : `nvm use 22`
+Utiliser `nvm` pour gérer les versions de Node : `nvm use 22`
