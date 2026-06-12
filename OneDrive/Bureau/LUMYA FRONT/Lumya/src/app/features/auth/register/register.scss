@@ -78,22 +78,42 @@ form {
 
 @media (min-width: 768px) {
   .login-form-wrapper {
-    background-size: contain !important;
-    background-position: center !important;
-    background-attachment: scroll !important;
-    background-color: #1E1E1E !important;
+    background: #d6e8f5 !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    overflow: hidden !important;
+  }
+
+  .login-form-wrapper::before {
+    position: relative !important;
+    flex: 1 1 auto;
+    top: auto;
+    left: auto;
+    right: auto;
+    height: auto;
+    background: url('https://i.imgur.com/wF4UB9q.png') center center / contain no-repeat !important;
   }
 
   app-auth-pop {
-    width: 460px !important;
+    flex: 0 0 500px;
+    width: 500px !important;
     height: auto !important;
+    position: relative !important;
+    background: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    margin-right: 40px;
   }
 
   .glass-sheet {
+    position: absolute;
+    top: 50%;
     left: 50%;
+    bottom: auto;
     right: auto;
-    width: 460px;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
+    width: 420px;
     border-radius: 24px;
   }
 }
