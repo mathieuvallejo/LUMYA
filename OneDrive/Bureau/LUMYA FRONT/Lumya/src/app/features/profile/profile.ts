@@ -10,9 +10,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AuthPop } from '../../shared/components/auth-pop/auth-pop';
 import { AuthService } from '../../core/services/auth.service';
-import { MoodPicker } from '../../shared/components/mood-picker/mood-picker';
+import { MoodPicker, Mood } from '../../shared/components/mood-picker/mood-picker';
 import { environment } from '../../../environments/environment';
 import { PrefererService, Preference } from '../../core/services/preferer.service';
+import { HumeurService, Humeur } from '../../core/services/humeur.service';
 import { Router } from '@angular/router';
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 
@@ -39,8 +40,10 @@ Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, L
   styleUrl: './profile.scss',
 })
 
-export class Profile implements OnInit {
-    @ViewChild('barchart') barChartRef!: ElementRef<HTMLCanvasElement>;
+export class Profile implements OnInit, AfterViewInit {
+  @ViewChild('barchart') barChartRef!: ElementRef<HTMLCanvasElement>;
+  private chartInstance: Chart | null = null;
+  private readonly moodOrder = ['fatigue', 'anxieux', 'colere', 'triste', 'stresse', 'joie'];
 
   nom = '';
   siret = '';
@@ -66,6 +69,7 @@ export class Profile implements OnInit {
     private http: HttpClient,
     private authService: AuthService,
     private prefererService: PrefererService,
+    private humeurService: HumeurService,
     private router: Router
   ) {}
 
@@ -148,27 +152,57 @@ export class Profile implements OnInit {
   }
 
   ngAfterViewInit() {
-    new Chart(this.barChartRef.nativeElement, {
+    const moodLabels = ['Fatigué', 'Anxieux', 'En colère', 'Triste', 'Stressé', 'Joie'];
+    const moodColors = [
+      'rgba(148, 163, 184, 0.8)',
+      'rgba(167, 139, 250, 0.8)',
+      'rgba(248, 113, 113, 0.8)',
+      'rgba(96, 165, 250, 0.8)',
+      'rgba(251, 146, 60, 0.8)',
+      'rgba(74, 222, 128, 0.8)',
+    ];
+
+    this.chartInstance = new Chart(this.barChartRef.nativeElement, {
       type: 'bar',
       data: {
-        labels: ['Triste', 'Joie', 'Anxiété'],
+        labels: moodLabels,
         datasets: [{
           label: 'Nombre de fois',
-          data: [12, 13, 14],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-          ],
-          borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-          ],
-          borderWidth: 1
+          data: [0, 0, 0, 0, 0, 0],
+          backgroundColor: moodColors,
+          borderColor: moodColors.map(c => c.replace('0.8', '1')),
+          borderWidth: 1,
+          borderRadius: 6,
         }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, ticks: { stepSize: 1 } }
+        }
       }
     });
+
+    const user = this.authService.getCurrentUser();
+    if (user?.id) {
+      this.humeurService.getByUser(user.id).subscribe({
+        next: (humeurs: Humeur[]) => {
+          const counts = this.moodOrder.map((id: string) => humeurs.filter(h => h.humeurs === id).length);
+          this.chartInstance!.data.datasets[0].data = counts;
+          this.chartInstance!.update();
+        }
+      });
+    }
+  }
+
+  onMoodSelected(mood: Mood) {
+    if (!this.chartInstance) return;
+    const idx = this.moodOrder.indexOf(mood.id);
+    if (idx === -1) return;
+    const data = this.chartInstance.data.datasets[0].data as number[];
+    data[idx] = (data[idx] ?? 0) + 1;
+    this.chartInstance.update();
   }
 
   openEditModal() {

@@ -36,7 +36,11 @@ export class MoodPicker {
 
   select(mood: Mood) {
     const user = this.authService.getCurrentUser();
-    if (!user?.id || this.saving()) return;
+    console.log('[MoodPicker] select appelé:', mood.id, '| user:', user?.id, '| saving:', this.saving());
+    if (!user?.id || this.saving()) {
+      console.warn('[MoodPicker] bloqué — user.id:', user?.id, '| saving:', this.saving());
+      return;
+    }
 
     this.selected.set(mood.id);
     this.saving.set(true);
@@ -48,7 +52,10 @@ export class MoodPicker {
         this.moodSelected.emit(mood);
         setTimeout(() => this.saved.set(false), 2500);
       },
-      error: () => this.saving.set(false),
+      error: (err) => {
+        console.error('[MoodPicker] erreur API:', err);
+        this.saving.set(false);
+      },
     });
   }
 }
